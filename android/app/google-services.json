@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1093212011499",
+    "project_id": "skatespotfinder-22c5b",
+    "storage_bucket": "skatespotfinder-22c5b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1093212011499:android:2e7be1240b6ae0294bb7ae",
+        "android_client_info": {
+          "package_name": "com.dominikgrosser.skate_spot_finder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1093212011499-71k3k20av2h5m85l2mgoe639k4rvjrqp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfaIzfaIG6SETakAg6SU4iwHfFhvIAmDw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1093212011499-71k3k20av2h5m85l2mgoe639k4rvjrqp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
