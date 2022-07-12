@@ -2,6 +2,6 @@ import 'package:get/get.dart';
 
 class DetailedPageController extends GetxController{
 
-  var spotIndex;
+  RxInt spotIndex =0.obs;
 
 }

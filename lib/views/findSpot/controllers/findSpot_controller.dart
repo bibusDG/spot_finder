@@ -9,5 +9,6 @@ class FindSpotController extends GetxController{
 
   var spotList = List<NewSpotModel>.empty().obs;
   var ridingStatus = Colors.red.obs;
+  RxBool generalSwitch = true.obs;
 
 }

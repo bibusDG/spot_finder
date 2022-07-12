@@ -44,31 +44,86 @@ class ManualGPS extends StatelessWidget {
                 ),
                 GetX<ModelController>(builder: (controller){
                   if(controller.countryText.value == '' || controller.cityText.value =='' || controller.postalCodeText.value == '' || controller.streetNameText.value == ''){
-                    return ElevatedButton(onPressed: null, child: Text('Save spot'));
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 20.0),
+                      child: SizedBox(
+                        height: 60.0,
+                        width: 250.0,
+                        child: OutlinedButton(
+                          onPressed: null,
+                          style: OutlinedButton.styleFrom(
+                            shape: StadiumBorder(),
+                            side: BorderSide(color: Colors.teal, width: 5.0),
+                          ),
+                          child: Text(
+                            'SAVE SPOT',
+                            style: TextStyle(fontSize: 20.0, color: Colors.redAccent),
+                          ),
+                        ),
+                      ),
+                    );
                   }else{
-                    return ElevatedButton(onPressed: (){
-                      FirebaseServices().createSpot();
-                      Get.toNamed('/findSpot');
-                    }, child: Text('Save spot'));
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 20.0),
+                      child: SizedBox(
+                        height: 60.0,
+                        width: 250.0,
+                        child: OutlinedButton(
+                          onPressed: (){
+                            FirebaseServices().createSpot();
+                            Get.defaultDialog(title: 'Loading...', content: CircularProgressIndicator());
+                            Future.delayed(Duration(seconds: 2),(){
+                              Get.back();
+                              Get.toNamed('/findSpot');});
+                          },
+                          style: OutlinedButton.styleFrom(
+                            shape: StadiumBorder(),
+                            side: BorderSide(color: Colors.teal, width: 5.0),
+                          ),
+                          child: Text(
+                            'SAVE SPOT',
+                            style: TextStyle(fontSize: 20.0, color: Colors.greenAccent),
+                          ),
+                        ),
+                      ),
+                    );
                   }
                 }),
-                ElevatedButton(child: Text('Cancel'), onPressed: (){
-                  // modelController.newSpot.spotAddress = modelController.address;
-                  // print(modelController.newSpot.toJson());
-                  // print(modelController.address.toJson());
-                  // FirebaseServices().fetchSpots();
-                  // findSpotController.createSpot();
-                  // clearSpotData();
-                  Get.toNamed('/mainPage');
-                  Get.deleteAll();
-
-
-
-                  // FirebaseServices().read();
-                  // findSpotController.fetchProducts();
-
-
-                }),
+                SizedBox(
+                  height: 60.0,
+                  width: 250.0,
+                  child: OutlinedButton(
+                    onPressed: () {
+                      Get.toNamed('/mainPage');
+                      Get.deleteAll();
+                    },
+                    style: OutlinedButton.styleFrom(
+                      shape: StadiumBorder(),
+                      side: BorderSide(color: Colors.teal, width: 5.0),
+                    ),
+                    child: Text(
+                      'CANCEL',
+                      style: TextStyle(fontSize: 20.0, color: Colors.greenAccent),
+                    ),
+                  ),
+                ),
+                // ElevatedButton(child: Text('Cancel'), onPressed: (){
+                //   // modelController.newSpot.spotAddress = modelController.address;
+                //   // print(modelController.newSpot.toJson());
+                //   // print(modelController.address.toJson());
+                //   // FirebaseServices().fetchSpots();
+                //   // findSpotController.createSpot();
+                //   // clearSpotData();
+                //   Get.toNamed('/mainPage');
+                //   Get.deleteAll();
+                //
+                //
+                //
+                //   // FirebaseServices().read();
+                //   // findSpotController.fetchProducts();
+                //
+                //
+                // }),
               ],
             ),
 

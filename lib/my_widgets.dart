@@ -27,6 +27,7 @@ class MyWidget extends StatelessWidget {
         maxLines: 1,
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
+            focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: BorderSide(color: Colors.teal, width: 4.0),),
             helperText: helperText,
             helperStyle: TextStyle(fontSize: 15.0),
             hintText: finalText,

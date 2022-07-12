@@ -10,7 +10,6 @@ class PhotoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     // PhotoController photoController = Get.put(PhotoController());
     PhotoController photoController = Get.find();
 
@@ -19,41 +18,108 @@ class PhotoPage extends StatelessWidget {
         appBar: AppBar(
           leading: Text(''),
           centerTitle: true,
-          title: Text('Photo Page'),),
+          title: Text('Photo Page'),
+        ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ElevatedButton(onPressed: (){
-                Get.defaultDialog(
-                  title: 'Photo',
-                  content: GetX<PhotoController>(builder: (controller){
-                    return Column(
-                      children: [
-                        Text('${controller.photoCounter.value} photo left'),
-                        CupertinoButton(
-                          child: Text('Take a photo'),
-                          onPressed: (){
-                            Get.back();
-                          controller.imageFromCamera();
-                        },),
-                      ],
+              SizedBox(
+                height: 60.0,
+                width: 300.0,
+                child: OutlinedButton(
+                  onPressed: () {
+                    Get.defaultDialog(
+                      title: 'Photo',
+                      content: GetX<PhotoController>(
+                        builder: (controller) {
+                          return Column(
+                            children: [
+                              Text('${controller.photoCounter.value} photo left'),
+                              CupertinoButton(
+                                child: Text('Take a photo'),
+                                onPressed: () {
+                                  Get.back();
+                                  controller.imageFromCamera();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      ),
                     );
                   },
-
+                  style: OutlinedButton.styleFrom(
+                    shape: StadiumBorder(),
+                    side: BorderSide(color: Colors.teal, width: 5.0),
                   ),
-                );
-              }, child: Obx(()=>Text(photoController.buttonText.value)),),
-              GetX<ModelController>(builder: (controller){
-                if(controller.spotPhotosText.isEmpty){
-                  return ElevatedButton(onPressed: null, child: Text('Next'));
-                }else{
-                  return ElevatedButton(onPressed: (){
-                    Get.toNamed('/gpsPage');
-                  }, child: Text('Next'));
+                  child: Obx(() => Text(
+                        photoController.buttonText.value,
+                        style: TextStyle(fontSize: 20.0, color: Colors.greenAccent),
+                      )),
+                ),
+              ),
+              GetX<ModelController>(builder: (controller) {
+                if (controller.spotPhotosText.isEmpty) {
+                  return Padding(
+                    padding: const EdgeInsets.only(top:20.0, bottom: 20.0),
+                    child: SizedBox(
+                      height: 60.0,
+                      width: 250.0,
+                      child: OutlinedButton(
+                        onPressed: null,
+                        style: OutlinedButton.styleFrom(
+                          shape: StadiumBorder(),
+                          side: BorderSide(color: Colors.teal, width: 5.0),
+                        ),
+                        child: Text(
+                          'NEXT',
+                          style: TextStyle(fontSize: 20.0, color: Colors.redAccent),
+                        ),
+                      ),
+                    ),
+                  );
+                } else {
+                  return Padding(
+                    padding: const EdgeInsets.only(top:20.0, bottom: 20.0),
+                    child: SizedBox(
+                      height: 60.0,
+                      width: 250.0,
+                      child: OutlinedButton(
+                        onPressed: () {
+                          Get.toNamed('/gpsPage');
+                        },
+                        style: OutlinedButton.styleFrom(
+                          shape: StadiumBorder(),
+                          side: BorderSide(color: Colors.teal, width: 5.0),
+                        ),
+                        child: Text(
+                          'NEXT',
+                          style: TextStyle(fontSize: 20.0, color: Colors.greenAccent),
+                        ),
+                      ),
+                    ),
+                  );
                 }
               }),
-              ElevatedButton(onPressed: (){Get.toNamed('/mianPage'); Get.deleteAll();}, child: Text('Cancel'))
+              SizedBox(
+                height: 60.0,
+                width: 250.0,
+                child: OutlinedButton(
+                  onPressed: () {
+                    Get.toNamed('/mainPage');
+                    Get.deleteAll();
+                  },
+                  style: OutlinedButton.styleFrom(
+                    shape: StadiumBorder(),
+                    side: BorderSide(color: Colors.teal, width: 5.0),
+                  ),
+                  child: Text(
+                    'CANCEL',
+                    style: TextStyle(fontSize: 20.0, color: Colors.greenAccent),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -61,3 +127,25 @@ class PhotoPage extends StatelessWidget {
     );
   }
 }
+
+
+// ElevatedButton(onPressed: (){
+//   Get.defaultDialog(
+//     title: 'Photo',
+//     content: GetX<PhotoController>(builder: (controller){
+//       return Column(
+//         children: [
+//           Text('${controller.photoCounter.value} photo left'),
+//           CupertinoButton(
+//             child: Text('Take a photo'),
+//             onPressed: (){
+//               Get.back();
+//             controller.imageFromCamera();
+//           },),
+//         ],
+//       );
+//     },
+//
+//     ),
+//   );
+// }, child: Obx(()=>Text(photoController.buttonText.value)),),

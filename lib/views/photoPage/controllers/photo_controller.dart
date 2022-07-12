@@ -14,7 +14,7 @@ class PhotoController extends GetxController{
 
   RxInt photoCounter = 3.obs;
   List photoList = [];
-  RxString buttonText = 'Take a photo'.obs;
+  RxString buttonText = 'TAKE A PHOTO'.obs;
 
   Future imageFromCamera() async {
     if(photoList.length < 3){
@@ -30,7 +30,7 @@ class PhotoController extends GetxController{
         photoCounter.value--;
         print(photoList.length);
         print(modelController.spotPhotosText.length);
-        buttonText.value = 'Take another photo';
+        buttonText.value = 'TAKE ANOTHER PHOTO';
 
       }catch(error){
         print('error');
