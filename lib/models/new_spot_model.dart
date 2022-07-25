@@ -11,11 +11,11 @@ class NewSpotModel{
   String? spotDescription;
   List? spotProperties;
   Address? spotAddress;
-  // Map<String, dynamic> spotAddress;
   List? spotPhotos;
   double? spotRank;
   int? votesCounter;
   int? spotRiders;
+  String? id;
 
 
   NewSpotModel({
@@ -29,6 +29,7 @@ class NewSpotModel{
     this.spotRank,
     this.votesCounter,
     this.spotRiders,
+    this.id,
 
 
   });
@@ -45,6 +46,7 @@ class NewSpotModel{
 
   factory NewSpotModel.fromJson(Map<String, dynamic> json) => NewSpotModel(
 
+    id:json['id'],
     spotName: json["spotName"],
     spotDescription: json["spotDescription"],
     spotProperties: json['spotProperties'],
@@ -58,7 +60,7 @@ class NewSpotModel{
 
   Map<String, dynamic> toJson(){
     return{
-
+      'id': id,
       'spotName': spotName,
       'spotDescription': spotDescription,
       'spotProperties': spotProperties,
@@ -78,6 +80,8 @@ class Address{
   String? cityName;
   String? streetName;
   String? streetNumber;
+  String? lat;
+  String? long;
 
   Address({
     this.countryName,
@@ -85,6 +89,8 @@ class Address{
     this.cityName,
     this.streetName,
     this.streetNumber,
+    this.lat,
+    this.long,
 });
 
   // Address.fromJson(Map<String, dynamic> parsedJSON)
@@ -100,7 +106,9 @@ class Address{
     cityName: json["cityName"],
     postalCode: json['postalCode'],
     streetName: json['streetName'],
-    streetNumber: json['streetNumber']
+    streetNumber: json['streetNumber'],
+    lat: json['latitude'],
+    long: json['longitude']
   );
 
   Map<String, dynamic> toJson() {
@@ -110,6 +118,8 @@ class Address{
       'cityName': cityName,
       'streetName': streetName,
       'streetNumber': streetNumber,
+      'latitude': lat,
+      'longitude': long,
     };
   }
   // Address.fromMap(Map<String, dynamic> addressMap)

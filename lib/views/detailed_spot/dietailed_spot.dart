@@ -5,6 +5,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_getx_widget.dart';
+import 'package:skate_spot_finder/my_widgets.dart';
 import 'package:skate_spot_finder/services/firebase_services.dart';
 import 'package:skate_spot_finder/views/detailed_spot/controllers/detailed_spot_controller.dart';
 import 'package:skate_spot_finder/views/findSpot/controllers/findSpot_controller.dart';
@@ -20,7 +21,7 @@ class DetailedSpot extends StatelessWidget {
 
     // DetailedPageController detailedPageController = Get.put(DetailedPageController());
     DetailedPageController detailedPageController = Get.find();
-    ModelController modelController = Get.find();
+    ModelController modelController = Get.put(ModelController());
 
     return Scaffold(
         appBar: AppBar(
@@ -30,16 +31,7 @@ class DetailedSpot extends StatelessWidget {
               SizedBox(
                 width: 10.0,
               ),
-              GestureDetector(
-                onTap: () {
-                  Get.toNamed('/mainPage');
-                  Get.deleteAll();
-                },
-                child: Icon(
-                  Icons.home_outlined,
-                  size: 35.0,
-                ),
-              ),
+              MyHomeIcon(),
               SizedBox(
                 width: 10.0,
               ),
@@ -59,211 +51,151 @@ class DetailedSpot extends StatelessWidget {
             ],
           ),
           centerTitle: true,
-          title: Text('SPOT DETAILS'),
+          title: detailedPageController.data['spotName']!=null? Text('${detailedPageController.data['spotName'].toUpperCase()} DETAILS'): null
+
         ),
-        body: GetX<FindSpotController>(builder: (controller) {
-          return Column(
-            children: [
-              Expanded(
-                flex: 3,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: PageView(
-                    controller: PageController(
-                      viewportFraction: 0.6,
+        body:Column(
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: PageView(
+                      controller: PageController(
+                        viewportFraction: 0.8,
+                      ),
+                      children: [
+                        if(detailedPageController.data['spotPhotos'] != null)
+                        for (var image in detailedPageController.data['spotPhotos'])
+                          image != ''
+                              ? Image.memory(base64Decode(image))
+                              : Center(child: Icon(size: 70.0, Icons.no_photography_outlined)),
+                      ],
                     ),
-                    children: [
-                      for (var image in controller.spotList[detailedPageController.spotIndex.value].spotPhotos!)
-                        image != ''
-                            ? Image.memory(base64Decode(image))
-                            : Center(child: Icon(size: 70.0, Icons.no_photography_outlined)),
-                    ],
                   ),
                 ),
-              ),
-              Expanded(
-                flex: 2,
-                child: SingleChildScrollView(
+                Expanded(
+                  flex: 2,
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      Text(
-                        'SPOT NAME: ',
-                        style: TextStyle(fontSize: 20.0),
-                      ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 8.0, bottom: 20.0),
-                        child: Text(
-                          '${controller.spotList[detailedPageController.spotIndex.value].spotName}',
+                        padding: const EdgeInsets.only(bottom: 20.0),
+                        child: SizedBox(
+                          height: 60.0,
+                          width: 250.0,
+                          child: OutlinedButton(
+                            onPressed: () async {
+                              return showModalBottomSheet(
+                                backgroundColor: Colors.indigo,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0))),
+                                  context: context,
+                                  builder: (context) {
+                                    return Column(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        MyDetailCard(
+                                          detailedPageController: detailedPageController,
+                                          cardText: 'ADDRESS',
+                                        ),
+                                        MyDetailCard(
+                                          detailedPageController: detailedPageController,
+                                          cardText: 'OBSTACLES',
+                                        ),
+                                      ],
+                                    );
+                                  });
+                            },
+                            style: OutlinedButton.styleFrom(
+                              shape: StadiumBorder(),
+                              side: BorderSide(color: Colors.teal, width: 5.0),
+                            ),
+                            child: Text(
+                              'SPOT DETAILS',
+                              style: TextStyle(fontSize: 20.0, color: Colors.greenAccent),
+                            ),
+                          ),
                         ),
                       ),
-                      Text(
-                        'FULL ADDRESS: ',
-                        style: TextStyle(fontSize: 20.0),
-                      ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 8.0, bottom: 20.0),
-                        child: Text(
-                            '${controller.spotList[detailedPageController.spotIndex.value].spotAddress!.countryName}, '
-                            '${controller.spotList[detailedPageController.spotIndex.value].spotAddress!.postalCode} '
-                            '${controller.spotList[detailedPageController.spotIndex.value].spotAddress!.cityName}, '
-                            '${controller.spotList[detailedPageController.spotIndex.value].spotAddress!.streetName} '
-                            '${controller.spotList[detailedPageController.spotIndex.value].spotAddress!.streetNumber}, '),
+                        padding: const EdgeInsets.only(bottom: 20.0),
+                        child: SizedBox(
+                          height: 60.0,
+                          width: 250.0,
+                          child: OutlinedButton(
+                            onPressed: () async {
+                              if (!await launchUrl(Uri.parse(
+                                  'https://www.google.pl/maps/search/${detailedPageController.data['spotAddress'].values.join(', ')}/'))) {
+                                throw 'Could not launch';
+                              }
+                            },
+                            style: OutlinedButton.styleFrom(
+                              shape: StadiumBorder(),
+                              side: BorderSide(color: Colors.teal, width: 5.0),
+                            ),
+                            child: Text(
+                              'FIND SPOT ON MAP',
+                              style: TextStyle(fontSize: 20.0, color: Colors.greenAccent),
+                            ),
+                          ),
+                        ),
                       ),
-                      Text(
-                        'SPOT PROPERTIES: ',
-                        style: TextStyle(fontSize: 20.0),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
-                        child: Text(
-                            '${controller.spotList[detailedPageController.spotIndex.value].spotProperties?.join(', ')}'),
-                      ),
-
-                      // Text('Country: ${controller.spotList[detailedPageController.spotIndex].spotAddress!.countryName}', style: TextStyle(fontSize: 20.0),),
-                      // Text('Postal code: ${controller.spotList[detailedPageController.spotIndex].spotAddress!.postalCode}', style: TextStyle(fontSize: 20.0),),
-                      // Text('City: ${controller.spotList[detailedPageController.spotIndex].spotAddress!.cityName}', style: TextStyle(fontSize: 20.0),),
-                      // Text('Street name: ${controller.spotList[detailedPageController.spotIndex].spotAddress!.streetName}', style: TextStyle(fontSize: 20.0),),
-                      // Text('Street number: ${controller.spotList[detailedPageController.spotIndex].spotAddress!.streetNumber}', style: TextStyle(fontSize: 20.0),),
-                      // Text('Spot properties: ${controller.spotList[detailedPageController.spotIndex].spotProperties?.join(', ')}', style: TextStyle(fontSize: 20.0),),
                       SizedBox(
-                        height: 25.0,
-                      ),
-
-                      // Text('Spot name: ${controller.spotList[detailedPageController.spotIndex].spotAddress!.streetName}', style: TextStyle(fontSize: 20.0),),
-                    ],
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom:20.0),
-                      child: SizedBox(
-                        height: 40.0,
+                        height: 60.0,
                         width: 250.0,
                         child: OutlinedButton(
-                          onPressed: () async{
-                            if (!await launchUrl(Uri.parse(
-                            'https://www.google.pl/maps/search/${controller.spotList[detailedPageController.spotIndex.value].spotAddress!.toJson().values.join(', ')}/'))) {
-                              throw 'Could not launch';
-                            }
+                          onPressed: () async {
+                            Get.defaultDialog(
+                              title: 'Rate spot',
+                              content: RatingBar.builder(
+                                initialRating: 0,
+                                minRating: 1,
+                                direction: Axis.horizontal,
+                                allowHalfRating: true,
+                                itemCount: 5,
+                                itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                                itemBuilder: (context, _) => Icon(
+                                  Icons.star_outlined,
+                                  color: Colors.amber,
+                                ),
+                                onRatingUpdate: (rating) {
+                                  modelController.spotRankText.value = rating;
+                                  // print(rating);
+                                },
+                              ),
+                              onConfirm: () async {
+                                var newSpotRank = detailedPageController.data['spotRank'].toDouble();
+                                var spotVotes = detailedPageController.data['votesCounter'].toInt();
+                                // print(spotVotes);
+                                // print(newSpotRank);
+                                FirebaseServices().updateSpot(detailedPageController.spotIndex,
+                                    {'spotRank': newSpotRank! + modelController.spotRankText.value});
+                                FirebaseServices()
+                                    .updateSpot(detailedPageController.spotIndex, {'votesCounter': spotVotes! + 1});
+                                Get.back();
+                                await Get.toNamed('/findSpot');
+                              },
+                            );
                           },
                           style: OutlinedButton.styleFrom(
                             shape: StadiumBorder(),
                             side: BorderSide(color: Colors.teal, width: 5.0),
                           ),
                           child: Text(
-                            'FIND SPOT ON MAP',
+                            'RATE SPOT',
                             style: TextStyle(fontSize: 20.0, color: Colors.greenAccent),
                           ),
                         ),
                       ),
-                    ),
-                    // ElevatedButton(
-                    //     onPressed: () async {
-                    //       if (!await launchUrl(Uri.parse(
-                    //           'https://www.google.pl/maps/search/${controller.spotList[detailedPageController.spotIndex.value].spotAddress!.toJson().values.join(', ')}/')))
-                    //         throw 'Could not launch';
-                    //     },
-                    //     child: Text('Find spot on map')),
-                    SizedBox(
-                      height: 40.0,
-                      width: 250.0,
-                      child: OutlinedButton(
-                        onPressed: () async{
-                          Get.defaultDialog(
-                            title: 'Rate spot',
-                            content: RatingBar.builder(
-                              initialRating: 0,
-                              minRating: 1,
-                              direction: Axis.horizontal,
-                              allowHalfRating: true,
-                              itemCount: 5,
-                              itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                              itemBuilder: (context, _) => Icon(
-                                Icons.star_outlined,
-                                color: Colors.amber,
-                              ),
-                              onRatingUpdate: (rating) {
-                                modelController.spotRankText.value = rating;
-                                // print(rating);
-                              },
-                            ),
-                            onConfirm: () async {
-                              var newSpotRank =
-                              controller.spotList[detailedPageController.spotIndex.value].spotRank?.toDouble();
-                              var spotVotes =
-                              controller.spotList[detailedPageController.spotIndex.value].votesCounter?.toInt();
-                              // print(spotVotes);
-                              // print(newSpotRank);
-                              FirebaseServices().updateSpot(detailedPageController.spotIndex,
-                                  {'spotRank': newSpotRank! + modelController.spotRankText.value});
-                              FirebaseServices()
-                                  .updateSpot(detailedPageController.spotIndex, {'votesCounter': spotVotes! + 1});
-                              Get.back();
-                              await Get.toNamed('/findSpot');
-                            },
-                          );
-                        },
-                        style: OutlinedButton.styleFrom(
-                          shape: StadiumBorder(),
-                          side: BorderSide(color: Colors.teal, width: 5.0),
-                        ),
-                        child: Text(
-                          'RATE SPOT',
-                          style: TextStyle(fontSize: 20.0, color: Colors.greenAccent),
-                        ),
-                      ),
-                    ),
-
-                    // ElevatedButton(
-                    //     onPressed: () {
-                    //       Get.defaultDialog(
-                    //         title: 'Rate spot',
-                    //         content: RatingBar.builder(
-                    //           initialRating: 0,
-                    //           minRating: 1,
-                    //           direction: Axis.horizontal,
-                    //           allowHalfRating: true,
-                    //           itemCount: 5,
-                    //           itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                    //           itemBuilder: (context, _) => Icon(
-                    //             Icons.star_outlined,
-                    //             color: Colors.amber,
-                    //           ),
-                    //           onRatingUpdate: (rating) {
-                    //             modelController.spotRankText.value = rating;
-                    //             // print(rating);
-                    //           },
-                    //         ),
-                    //         onConfirm: () async {
-                    //           var newSpotRank =
-                    //               controller.spotList[detailedPageController.spotIndex.value].spotRank?.toDouble();
-                    //           var spotVotes =
-                    //               controller.spotList[detailedPageController.spotIndex.value].votesCounter?.toInt();
-                    //           // print(spotVotes);
-                    //           // print(newSpotRank);
-                    //           FirebaseServices().updateSpot(detailedPageController.spotIndex,
-                    //               {'spotRank': newSpotRank! + modelController.spotRankText.value});
-                    //           FirebaseServices()
-                    //               .updateSpot(detailedPageController.spotIndex, {'votesCounter': spotVotes! + 1});
-                    //           Get.back();
-                    //           await Get.toNamed('/findSpot');
-                    //         },
-                    //       );
-                    //     },
-                    //     child: Text('Give rating')),
-                  ],
+                      //TODO make spot description more attractive for user
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          );
-        }));
+              ],
+        ),
+
+      );
   }
 }

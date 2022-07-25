@@ -2,11 +2,13 @@ import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:skate_spot_finder/views/detailed_spot/controllers/detailed_spot_controller.dart';
 import 'package:skate_spot_finder/views/newSpot/controllers/model_controller.dart';
 
 class GeoLocation {
 
   ModelController modelController = Get.find();
+  DetailedPageController detailedPageController = Get.find();
 
   /// GEOLOCATION SETUP
   ///
@@ -51,14 +53,16 @@ class GeoLocation {
 
   void finalPosition()async{
     Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    List placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
+    List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
     // newSpotController.countryName =
     if (position != null){
       Get.snackbar(duration: Duration(seconds: 5), 'GPS location', 'Location saved successfully');
       // print(position);
-      print(placemarks.join(',').split(',')[7]);
+      // print(placemarks.join(',').split(',')[7]);
       // print(placemarks.join(', ').split(', ')[0].split((':'))[1]);
-
+      // print(placemarks[0].)
+      modelController.latitude.value = position.latitude.toString();
+      modelController.longitude.value = position.longitude.toString();
       modelController.countryText.value = placemarks.join(',').split(',')[3].split((':'))[1];
       modelController.cityText.value = placemarks.join(',').split(',')[7].split((':'))[1];
       modelController.postalCodeText.value = placemarks.join(',').split(',')[4].split((':'))[1];

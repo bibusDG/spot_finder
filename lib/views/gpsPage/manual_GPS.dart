@@ -34,11 +34,11 @@ class ManualGPS extends StatelessWidget {
                   child: SizedBox(width:400,
                     child: Column(
                       children: [
-                        GetX<ModelController>(builder: (controller){return MyWidget(modelController: modelController, helperText: 'Country',finalText: controller.countryText.value);}),
-                        GetX<ModelController>(builder: (controller){return MyWidget(modelController: modelController, helperText: 'City',finalText: controller.cityText.value);}),
-                        GetX<ModelController>(builder: (controller){return MyWidget(modelController: modelController, helperText: 'Postal code',finalText: controller.postalCodeText.value);}),
-                        GetX<ModelController>(builder: (controller){return MyWidget(modelController: modelController, helperText: 'Street name',finalText: controller.streetNameText.value);}),
-                        GetX<ModelController>(builder: (controller){return MyWidget(modelController: modelController, helperText: 'Street number',finalText: controller.streetNumberText.value);}),
+                        MyTextFieldWidget(modelController: modelController, helperText: 'Country'),
+                        MyTextFieldWidget(modelController: modelController, helperText: 'City'),
+                        MyTextFieldWidget(modelController: modelController, helperText: 'Postal code'),
+                        MyTextFieldWidget(modelController: modelController, helperText: 'Street name'),
+                        MyTextFieldWidget(modelController: modelController, helperText: 'Street number'),
                       ],
                     ),),
                 ),
@@ -70,6 +70,7 @@ class ManualGPS extends StatelessWidget {
                         width: 250.0,
                         child: OutlinedButton(
                           onPressed: (){
+                            FirebaseServices().locationFromText();
                             FirebaseServices().createSpot();
                             Get.defaultDialog(title: 'Loading...', content: CircularProgressIndicator());
                             Future.delayed(Duration(seconds: 2),(){
@@ -89,24 +90,7 @@ class ManualGPS extends StatelessWidget {
                     );
                   }
                 }),
-                SizedBox(
-                  height: 60.0,
-                  width: 250.0,
-                  child: OutlinedButton(
-                    onPressed: () {
-                      Get.toNamed('/mainPage');
-                      Get.deleteAll();
-                    },
-                    style: OutlinedButton.styleFrom(
-                      shape: StadiumBorder(),
-                      side: BorderSide(color: Colors.teal, width: 5.0),
-                    ),
-                    child: Text(
-                      'CANCEL',
-                      style: TextStyle(fontSize: 20.0, color: Colors.greenAccent),
-                    ),
-                  ),
-                ),
+                MyCancelButton(),
                 // ElevatedButton(child: Text('Cancel'), onPressed: (){
                 //   // modelController.newSpot.spotAddress = modelController.address;
                 //   // print(modelController.newSpot.toJson());

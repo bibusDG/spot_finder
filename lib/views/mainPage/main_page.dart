@@ -4,15 +4,18 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:skate_spot_finder/storage.dart';
-
 import '../../services/firebase_services.dart';
+import '../detailed_spot/controllers/detailed_spot_controller.dart';
 import '../findSpot/controllers/findSpot_controller.dart';
+
+//TODO clean code by extracting widgets
 
 class MainPage extends StatelessWidget {
   const MainPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         leading: Text(''),

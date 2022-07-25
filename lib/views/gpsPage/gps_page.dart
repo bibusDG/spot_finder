@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_getx_widget.dart';
+import 'package:skate_spot_finder/my_widgets.dart';
 import 'package:skate_spot_finder/services/firebase_services.dart';
 import 'package:skate_spot_finder/views/newSpot/controllers/model_controller.dart';
 
@@ -58,22 +59,6 @@ class GpsPage extends StatelessWidget {
                   ),
                 ),
               ),
-              // ElevatedButton(onPressed: (){
-              //   Get.defaultDialog(
-              //     title: 'Choose option',
-              //     content:Column(children: [
-              //       CupertinoButton(child: Text('Insert manually'), onPressed: (){
-              //         Get.back();
-              //         Get.toNamed('/manualGPS',);
-              //
-              //       }),
-              //       CupertinoButton(child: Text('From GPS'), onPressed: ()async{
-              //         geoLocation.determinePosition;
-              //         geoLocation.finalPosition();
-              //       }),
-              //     ],),
-              //   );
-              // }, child: Text('Insert spot localization')),
               GetX<ModelController>(builder: (controller){
                 if(controller.countryText.value == '' || controller.cityText.value =='' || controller.postalCodeText.value == '' || controller.streetNameText.value == ''){
                   return Padding(
@@ -124,26 +109,8 @@ class GpsPage extends StatelessWidget {
               SizedBox(
                 height: 60.0,
                 width: 250.0,
-                child: OutlinedButton(
-                  onPressed: () {
-                    Get.toNamed('/mainPage');
-                    Get.deleteAll();
-                  },
-                  style: OutlinedButton.styleFrom(
-                    shape: StadiumBorder(),
-                    side: BorderSide(color: Colors.teal, width: 5.0),
-                  ),
-                  child: Text(
-                    'CANCEL',
-                    style: TextStyle(fontSize: 20.0, color: Colors.greenAccent),
-                  ),
-                ),
+                child: MyCancelButton(),
               ),
-              // ElevatedButton(onPressed: (){
-              //   Get.toNamed('/mainPage');
-              //   Get.deleteAll();},
-              //     child: Text('Cancel'))
-              // ElevatedButton(onPressed: (){Get.toNamed('/mainPage'); modelController.}, child: Text('Cancel'))
             ],
           ),
         ),
@@ -151,8 +118,3 @@ class GpsPage extends StatelessWidget {
     );
   }
 }
-
-// ElevatedButton(onPressed: (){
-// FirebaseServices().createSpot();
-// Future.delayed(Duration(seconds: 2),(){Get.toNamed('/findSpot');});
-// }, child: Text('Save spot'));

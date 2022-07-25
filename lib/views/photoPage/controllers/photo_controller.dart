@@ -19,7 +19,7 @@ class PhotoController extends GetxController{
   Future imageFromCamera() async {
     if(photoList.length < 3){
       try{
-        final image = await ImagePicker().pickImage(source: ImageSource.camera, maxHeight: 480, maxWidth: 640);
+        final image = await ImagePicker().pickImage(source: ImageSource.camera, maxHeight: 480, maxWidth: 640, imageQuality: 50);
         if (image == null) return;
         final finalImage = Io.File(image.path);
 
