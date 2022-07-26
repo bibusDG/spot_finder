@@ -41,7 +41,7 @@ class MyTextFieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(4.0),
       child: TextFormField(
         onChanged: (String value) {
           modelController.insertedValue = value;
@@ -51,17 +51,19 @@ class MyTextFieldWidget extends StatelessWidget {
         maxLines: 1,
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.black, width: 1.2),
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: Colors.teal, width: 4.0),),
+              borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: Colors.black, width: 4.0),),
             helperText: helperText,
-            helperStyle: TextStyle(fontSize: 15.0),
+            helperStyle: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w200, color: Colors.black),
             // hintText: finalText,
             hintStyle: TextStyle(
-                color: Colors.grey
+                color: Colors.white
             ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-            )
+
         ),
       ),
     );
@@ -115,12 +117,13 @@ class MyCancelButton extends StatelessWidget {
           Get.deleteAll();
         },
         style: OutlinedButton.styleFrom(
+          backgroundColor: Colors.black,
           shape: StadiumBorder(),
-          side: BorderSide(color: Colors.teal, width: 5.0),
+          // side: BorderSide(color: Colors.teal, width: 5.0),
         ),
         child: Text(
           'CANCEL',
-          style: TextStyle(fontSize: 20.0, color: Colors.greenAccent),
+          style: TextStyle(fontSize: 20.0, color: Colors.white),
         ),
       ),
     );
@@ -144,7 +147,8 @@ class MyNextOutlinedButton extends StatelessWidget {
           onPressed: null,
           style: OutlinedButton.styleFrom(
             shape: StadiumBorder(),
-            side: BorderSide(color: Colors.teal, width: 5.0),
+            backgroundColor: Colors.black
+            // side: BorderSide(color: Colors.teal, width: 5.0),
           ),
           child: Text(
             'NEXT',
@@ -162,11 +166,12 @@ class MyNextOutlinedButton extends StatelessWidget {
           },
           style: OutlinedButton.styleFrom(
             shape: StadiumBorder(),
-            side: BorderSide(color: Colors.teal, width: 5.0),
+            backgroundColor: Colors.black
+            // side: BorderSide(color: Colors.teal, width: 5.0),
           ),
           child: Text(
             'NEXT',
-            style: TextStyle(fontSize: 20.0, color: Colors.greenAccent),
+            style: TextStyle(fontSize: 20.0, color: Colors.white),
           ),
         ),
       );
@@ -196,9 +201,9 @@ class MyDetailCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: Colors.teal, borderRadius: BorderRadius.all(Radius.circular(20.0))),
-      height: 190.0,
-      width: 420.0,
+          color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(20.0))),
+      height: 150.0,
+      width: 320.0,
       child: Column(
         children: [
           Padding(
@@ -206,7 +211,7 @@ class MyDetailCard extends StatelessWidget {
               child: Text(
                 cardText,
                 style: TextStyle(
-                    color: Colors.black54, fontSize: 25, fontWeight: FontWeight.w600),
+                    color: Colors.black, fontSize: 25, fontWeight: FontWeight.w600),
               )),
           Builder(
             builder: (controller) {
@@ -223,7 +228,7 @@ class MyDetailCard extends StatelessWidget {
                       '${detailedPageController.data['spotAddress']['streetNumber']
                       ?.toUpperCase()}',
                   style: TextStyle(
-                      fontSize: 18.0, color: Colors.black87, fontWeight: FontWeight.w800),
+                      fontSize: 18.0, color: Colors.black, fontWeight: FontWeight.w800),
                 );
               } else {
                 return Text(
@@ -231,7 +236,7 @@ class MyDetailCard extends StatelessWidget {
                         .join(', ')
                         .toUpperCase()}',
                     style: TextStyle(
-                        fontSize: 18, color: Colors.black87, fontWeight: FontWeight.w800));
+                        fontSize: 18, color: Colors.black, fontWeight: FontWeight.w800));
               }
             },
           ),

@@ -84,39 +84,65 @@ class DetailedSpot extends StatelessWidget {
                           height: 60.0,
                           width: 250.0,
                           child: OutlinedButton(
-                            onPressed: () async {
-                              return showModalBottomSheet(
-                                backgroundColor: Colors.indigo,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0))),
-                                  context: context,
-                                  builder: (context) {
-                                    return Column(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        MyDetailCard(
-                                          detailedPageController: detailedPageController,
-                                          cardText: 'ADDRESS',
-                                        ),
-                                        MyDetailCard(
-                                          detailedPageController: detailedPageController,
-                                          cardText: 'OBSTACLES',
-                                        ),
-                                      ],
-                                    );
-                                  });
-                            },
                             style: OutlinedButton.styleFrom(
                               shape: StadiumBorder(),
-                              side: BorderSide(color: Colors.teal, width: 5.0),
+                              backgroundColor: Colors.black
+                              // side: BorderSide(color: Color(0xffec3e4b), width: 5.0),
                             ),
-                            child: Text(
-                              'SPOT DETAILS',
-                              style: TextStyle(fontSize: 20.0, color: Colors.greenAccent),
-                            ),
-                          ),
+                            onPressed: (){
+                            Get.defaultDialog(titleStyle:TextStyle(fontSize: 35.0), title: 'SPOT DETAILS',content: Column(
+                              children: [
+                                MyDetailCard(
+                                  detailedPageController: detailedPageController,
+                                  cardText: 'ADDRESS',
+                                ),
+                                SizedBox(height: 20.0,),
+                                MyDetailCard(
+                                  detailedPageController: detailedPageController,
+                                  cardText: 'OBSTACLES',
+                                ),
+                              ],
+                            ));
+
+                          }, child: Text(
+                            'SPOT DETAILS',
+                            style: TextStyle(fontSize: 20.0, color: Colors.white),
+
+                          ),),
+                          // child: OutlinedButton(
+                          //   onPressed: () async {
+                          //     return showModalBottomSheet(
+                          //       backgroundColor: Colors.white,
+                          //         shape: RoundedRectangleBorder(
+                          //             borderRadius: BorderRadius.only(
+                          //                 topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0))),
+                          //         context: context,
+                          //         builder: (context) {
+                          //           return Column(
+                          //             crossAxisAlignment: CrossAxisAlignment.center,
+                          //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          //             children: [
+                          //               MyDetailCard(
+                          //                 detailedPageController: detailedPageController,
+                          //                 cardText: 'ADDRESS',
+                          //               ),
+                          //               MyDetailCard(
+                          //                 detailedPageController: detailedPageController,
+                          //                 cardText: 'OBSTACLES',
+                          //               ),
+                          //             ],
+                          //           );
+                          //         });
+                          //   },
+                          //   style: OutlinedButton.styleFrom(
+                          //     shape: StadiumBorder(),
+                          //     side: BorderSide(color: Color(0xffec3e4b), width: 5.0),
+                          //   ),
+                          //   child: Text(
+                          //     'SPOT DETAILS',
+                          //     style: TextStyle(fontSize: 20.0, color: Colors.white),
+                          //   ),
+                          // ),
                         ),
                       ),
                       Padding(
@@ -133,11 +159,12 @@ class DetailedSpot extends StatelessWidget {
                             },
                             style: OutlinedButton.styleFrom(
                               shape: StadiumBorder(),
-                              side: BorderSide(color: Colors.teal, width: 5.0),
+                              backgroundColor: Colors.black
+                              // side: BorderSide(color: Color(0xffec3e4b), width: 5.0),
                             ),
                             child: Text(
                               'FIND SPOT ON MAP',
-                              style: TextStyle(fontSize: 20.0, color: Colors.greenAccent),
+                              style: TextStyle(fontSize: 20.0, color: Colors.white),
                             ),
                           ),
                         ),
@@ -148,6 +175,8 @@ class DetailedSpot extends StatelessWidget {
                         child: OutlinedButton(
                           onPressed: () async {
                             Get.defaultDialog(
+                              buttonColor: Colors.black,
+                              confirmTextColor: Colors.white,
                               title: 'Rate spot',
                               content: RatingBar.builder(
                                 initialRating: 0,
@@ -181,11 +210,12 @@ class DetailedSpot extends StatelessWidget {
                           },
                           style: OutlinedButton.styleFrom(
                             shape: StadiumBorder(),
-                            side: BorderSide(color: Colors.teal, width: 5.0),
+                            backgroundColor: Colors.black,
+                            // side: BorderSide(color: Color(0xffec3e4b), width: 5.0),
                           ),
                           child: Text(
                             'RATE SPOT',
-                            style: TextStyle(fontSize: 20.0, color: Colors.greenAccent),
+                            style: TextStyle(fontSize: 20.0, color: Colors.white),
                           ),
                         ),
                       ),

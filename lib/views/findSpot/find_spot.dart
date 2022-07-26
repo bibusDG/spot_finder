@@ -19,6 +19,9 @@ bool switchMarker = true;
 
 Map mapOfGoogleMarkers = {};
 
+var myTextStyle = TextStyle(color:Colors.black);
+var myIconColor = Colors.black;
+
 // List<Marker> _marker =[];
 
 class FindSpot extends StatelessWidget {
@@ -119,7 +122,7 @@ class FindSpot extends StatelessWidget {
                             decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(20.0))),
                             height: 200,
                             child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(primary: Colors.indigo,
+                                style: ElevatedButton.styleFrom(primary: Colors.white,
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.all(Radius.circular(20.0)))),
                                 onPressed: () {
@@ -190,20 +193,21 @@ class FindSpot extends StatelessWidget {
                                               Icon(
                                                 Icons.list_outlined,
                                                 size: 30.0,
+                                                color: myIconColor,
                                               ),
                                               SizedBox(
                                                 width: 10,
                                               ),
-                                              Text(data['spotName']),
+                                              Text(data['spotName'], style: myTextStyle,),
                                             ],
                                           ),
                                           Row(
                                             children: [
-                                              Icon(Icons.emoji_flags_outlined, size: 30),
+                                              Icon(Icons.emoji_flags_outlined, size: 30, color: myIconColor,),
                                               SizedBox(
                                                 width: 10,
                                               ),
-                                              Text(data['spotAddress']['countryName']),
+                                              Text(data['spotAddress']['countryName'], style: myTextStyle,),
                                             ],
                                           ),
                                           Row(
@@ -211,24 +215,26 @@ class FindSpot extends StatelessWidget {
                                               Icon(
                                                 Icons.location_city,
                                                 size: 30,
+                                                color: myIconColor,
                                               ),
                                               SizedBox(
                                                 width: 10,
                                               ),
-                                              Text(data['spotAddress']['cityName']),
+                                              Text(data['spotAddress']['cityName'], style: myTextStyle,),
                                             ],
                                           ),
                                           Row(
                                             children: [
-                                              Icon(Icons.person),
+                                              Container(width:30, height:30, child: Image.asset('assets/icons/2-accessibility-outline.gif')),
+                                              // Icon(Icons.person, color: myIconColor,),
                                               SizedBox(
                                                 width: 30.0,
                                               ),
-                                              Text(data['spotRiders'].toString()),
+                                              Text(data['spotRiders'].toString(), style: myTextStyle,),
                                               SizedBox(
                                                 width: 50.0,
                                               ),
-                                              Text('I\'M RIDING'),
+                                              Text('I\'M RIDING', style: myTextStyle,),
                                               ValueBuilder<bool?>(
                                                 initialValue: riderSwitch.read(index.toString()) ?? false,
                                                 builder: (value, updateFn) {

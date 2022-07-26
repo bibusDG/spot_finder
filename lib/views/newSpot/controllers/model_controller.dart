@@ -9,8 +9,8 @@ class ModelController extends GetxController{
     RxString spotDescriptionText =''.obs;
     RxList spotPropertiesText =[].obs;
     RxList spotPhotosText =[].obs;
-    RxDouble spotRankText = 0.0.obs;
-    RxInt votesCounterText = 0.obs;
+    RxDouble spotRankText = 1.0.obs;
+    RxInt votesCounterText = 1.obs;
     RxInt spotRidersText = 0.obs;
 
 

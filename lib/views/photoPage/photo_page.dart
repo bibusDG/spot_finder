@@ -25,6 +25,7 @@ class PhotoPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Container(height: 100, width: 100, child: Image.asset('assets/icons/32-videocam-outline.gif')),
               SizedBox(
                 height: 60.0,
                 width: 250.0,
@@ -52,11 +53,12 @@ class PhotoPage extends StatelessWidget {
                   },
                   style: OutlinedButton.styleFrom(
                     shape: StadiumBorder(),
-                    side: BorderSide(color: Colors.teal, width: 5.0),
+                    backgroundColor: Colors.black,
+                    // side: BorderSide(color: Colors.teal, width: 5.0),
                   ),
                   child: Obx(() => Text(
                         photoController.buttonText.value,
-                        style: TextStyle(fontSize: 20.0, color: Colors.greenAccent),
+                        style: TextStyle(fontSize: 20.0, color: Colors.white),
                       )),
                 ),
               ),

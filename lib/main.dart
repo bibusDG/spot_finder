@@ -16,6 +16,7 @@ import 'package:skate_spot_finder/views/newSpot/controllers/model_controller.dar
 import 'package:skate_spot_finder/views/newSpot/new_spot.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:skate_spot_finder/views/photoPage/photo_page.dart';
+import 'package:skate_spot_finder/views/start_page/start_page.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,7 +48,11 @@ class MyApp extends StatelessWidget {
           ResponsiveBreakpoint.resize(1000, name: DESKTOP),
         ],
       ),
-      theme: ThemeData.dark(),
+      theme: ThemeData(brightness: Brightness.light, fontFamily: 'londrina', appBarTheme: AppBarTheme(backgroundColor: Colors.black)),
+      // theme: ThemeData(brightness: Brightness.dark, fontFamily: 'londrina', scaffoldBackgroundColor: Color(0xff565656)),
+      // theme: ThemeData(scaffoldBackgroundColor: Color(0xFFe98d20),
+      //     fontFamily: 'londrina',
+      //     appBarTheme: AppBarTheme(color: Color(0xFF232f34))),
       getPages: [
         GetPage(name: '/', page: () => MainPage(), transition: Transition.leftToRight),
         GetPage(name: '/newSpot', page: () => NewSpot(), transition: Transition.rightToLeft),
@@ -57,6 +62,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/gpsPage', page: () => GpsPage()),
         GetPage(name: '/detailPage', page: () => DetailedSpot()),
         GetPage(name: '/googleMap', page:()=>GoogleMapPage()),
+        GetPage(name: '/startPage', page:()=>StartPage()),
       ],
     );
   }

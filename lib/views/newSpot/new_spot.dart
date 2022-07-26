@@ -84,10 +84,11 @@ class NewSpot extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 30, right: 30, bottom: 30, top: 0),
                   child: SizedBox(
-                    width: 380,
+                    width: 390,
                     child: MultiSelectDialogField(
+                      selectedColor: Colors.black45,
                       title: Text(''),
-                      buttonText: Text('Choose spot details', style: TextStyle(color: Colors.grey),),
+                      buttonText: Text('Choose spot details', style: TextStyle(color: Colors.black, fontSize: 18.0),),
                       items: spotData.map((e) => MultiSelectItem(e, e)).toList(),
                       listType: MultiSelectListType.CHIP,
                       onConfirm: (values) {
