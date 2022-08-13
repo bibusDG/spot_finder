@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:lottie/lottie.dart';
 import 'package:skate_spot_finder/storage.dart';
 import '../../services/firebase_services.dart';
 import '../detailed_spot/controllers/detailed_spot_controller.dart';
@@ -16,6 +17,7 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+
     return Scaffold(
       appBar: AppBar(
         leading: Text(''),
@@ -26,7 +28,7 @@ class MainPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(height: 100, width: 100, child: Image.asset('assets/icons/62-butt-outline.gif'),),
+            Container(height: 160, width: 160, child: Lottie.asset('assets/icons/1808-skateboarding-outline.json'),),
             Center(
               child: SizedBox(
                 width: 250.0,
@@ -58,7 +60,8 @@ class MainPage extends StatelessWidget {
                   onPressed: () {
                     Get.defaultDialog(
                       title: 'Loading...',
-                      content: CircularProgressIndicator(color: Colors.black,),
+                      // content: CircularProgressIndicator(color: Colors.black,),
+                      content: SizedBox(height:160, width:160, child: Lottie.asset('assets/icons/69-eye-outline.json')),
                     );
                     Future.delayed(Duration(seconds: 3), () {
                       Get.back();

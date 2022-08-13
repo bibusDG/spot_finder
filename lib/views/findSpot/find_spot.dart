@@ -123,6 +123,7 @@ class FindSpot extends StatelessWidget {
                             height: 200,
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(primary: Colors.white,
+                                    elevation: 1.0,
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.all(Radius.circular(20.0)))),
                                 onPressed: () {
@@ -236,7 +237,7 @@ class FindSpot extends StatelessWidget {
                                               ),
                                               Text('I\'M RIDING', style: myTextStyle,),
                                               ValueBuilder<bool?>(
-                                                initialValue: riderSwitch.read(index.toString()) ?? false,
+                                                initialValue: riderSwitch.read(data['id'].toString()) ?? false,
                                                 builder: (value, updateFn) {
                                                   return Switch(
                                                     value: value!,
@@ -246,25 +247,30 @@ class FindSpot extends StatelessWidget {
                                                 },
                                                 // if you need to call something outside the builder method.
                                                 onUpdate: (value) async {
-                                                  if (switchMarker == false && value == false &&
+                                                  if (value == false &&
                                                       riderSwitch.read(data['id']) == false) {
                                                     riderSwitch.write(data['id'], false);
                                                     Get.defaultDialog(title: 'Seriously...?',
-                                                        content: Text('You are riding somewhere else!!!'));
+                                                        content: Column(
+                                                          children: [
+                                                            SizedBox(height: 100, width: 100,child: Image.asset('assets/icons/62-butt-outline.gif'),),
+                                                            Text('You are riding somewhere else!!!'),
+                                                          ],
+                                                        ));
                                                   }
                                                   // print("Value updated: $value");
                                                   // print(switchMarker);
                                                   //
                                                   await riderSwitch.write(data['id'], value);
-                                                  if (data['spotRiders'] >= 0 && value == true &&
-                                                      switchMarker == true) {
+                                                  if (data['spotRiders'] >= 0 && value == true
+                                                      ) {
                                                     FirebaseServices().updateSpot(
                                                         data['id'], {'spotRiders': data['spotRiders'] + 1});
 
                                                     switchMarker = false;
                                                   }
-                                                  if (data['spotRiders'] > 0 && value == false &&
-                                                      switchMarker == false) {
+                                                  if (data['spotRiders'] > 0 && value == false
+                                                      ) {
                                                     FirebaseServices().updateSpot(
                                                         data['id'], {'spotRiders': data['spotRiders'] - 1});
 

@@ -113,6 +113,8 @@ class NewSpot extends StatelessWidget {
                   height: 20.0,
                 ),
                 MyCancelButton(),
+                SizedBox(height: 10.0,),
+                // SizedBox(width:100, height:100, child: Image.asset('')),
               ],
             ),
           ),

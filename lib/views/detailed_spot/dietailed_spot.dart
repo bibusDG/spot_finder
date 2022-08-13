@@ -5,6 +5,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_getx_widget.dart';
+import 'package:lottie/lottie.dart';
 import 'package:skate_spot_finder/my_widgets.dart';
 import 'package:skate_spot_finder/services/firebase_services.dart';
 import 'package:skate_spot_finder/views/detailed_spot/controllers/detailed_spot_controller.dart';
@@ -37,8 +38,8 @@ class DetailedSpot extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Get.defaultDialog(title: 'Laoding...', content: CircularProgressIndicator());
-                  Future.delayed(2.seconds, () {
+                  Get.defaultDialog(title: 'Laoding...', content: SizedBox(height:160, width:160, child: Lottie.asset('assets/icons/69-eye-outline.json')),);
+                  Future.delayed(3.seconds, () {
                     Get.back();
                     Get.toNamed('/findSpot');
                   });
@@ -101,6 +102,7 @@ class DetailedSpot extends StatelessWidget {
                                   detailedPageController: detailedPageController,
                                   cardText: 'OBSTACLES',
                                 ),
+                                SizedBox(height: 100.0, width: 100.0, child: Lottie.asset('assets/icons/1872-small-cute-monster-outline.json')),
                               ],
                             ));
 

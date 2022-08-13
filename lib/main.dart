@@ -16,7 +16,7 @@ import 'package:skate_spot_finder/views/newSpot/controllers/model_controller.dar
 import 'package:skate_spot_finder/views/newSpot/new_spot.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:skate_spot_finder/views/photoPage/photo_page.dart';
-import 'package:skate_spot_finder/views/start_page/start_page.dart';
+
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -62,7 +62,6 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/gpsPage', page: () => GpsPage()),
         GetPage(name: '/detailPage', page: () => DetailedSpot()),
         GetPage(name: '/googleMap', page:()=>GoogleMapPage()),
-        GetPage(name: '/startPage', page:()=>StartPage()),
       ],
     );
   }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_getx_widget.dart';
+import 'package:lottie/lottie.dart';
 import 'package:skate_spot_finder/my_widgets.dart';
 import 'package:skate_spot_finder/services/firebase_services.dart';
 import 'package:skate_spot_finder/views/newSpot/controllers/model_controller.dart';
@@ -29,7 +30,7 @@ class GpsPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(height: 100,width: 100,child: Image.asset('assets/icons/30-anchor-outline.gif'),),
+              Container(height: 100,width: 100,child: Image.asset('assets/icons/18-location-pin-lineal.gif'),),
               SizedBox(
                 height: 60.0,
                 width: 250.0,
@@ -91,8 +92,9 @@ class GpsPage extends StatelessWidget {
                       child: OutlinedButton(
                         onPressed: (){
                           FirebaseServices().createSpot();
-                          Get.defaultDialog(title: 'Loading...', content: CircularProgressIndicator());
-                          Future.delayed(Duration(seconds: 2),(){
+                          Get.defaultDialog(title: 'Loading...', 
+                              content: SizedBox(height:100, width:100, child: Lottie.asset('assets/icons/18-location-pin-outline.json')));
+                          Future.delayed(Duration(seconds: 3),(){
                             Get.back();
                             Get.toNamed('/findSpot');});
                         },
