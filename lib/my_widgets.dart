@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:skate_spot_finder/services/firebase_services.dart';
-import 'package:skate_spot_finder/storage.dart';
 import 'package:skate_spot_finder/views/detailed_spot/controllers/detailed_spot_controller.dart';
 import 'package:skate_spot_finder/views/findSpot/controllers/findSpot_controller.dart';
 import 'package:skate_spot_finder/views/newSpot/controllers/model_controller.dart';
@@ -71,31 +69,24 @@ class MyTextFieldWidget extends StatelessWidget {
 
   void buttonPressed(String buttonText) {
     if (buttonText == 'Country') {
-      // address.countryName = insertedValue;
       modelController.countryText.value = modelController.insertedValue;
     }
     if (buttonText == 'City') {
-      // address.cityName = insertedValue;
       modelController.cityText.value = modelController.insertedValue;
     }
     if (buttonText == 'Postal code') {
-      // address.postalCode = insertedValue;
       modelController.postalCodeText.value = modelController.insertedValue;
     }
     if (buttonText == 'Street name') {
-      // address.streetName = insertedValue;
       modelController.streetNameText.value = modelController.insertedValue;
     }
     if (buttonText == 'Street number') {
-      // address.streetNumber = insertedValue;
       modelController.streetNumberText.value = modelController.insertedValue;
     }
     if (buttonText == 'Spot name') {
-      // address.streetNumber = insertedValue;
       modelController.spotNameText.value = modelController.insertedValue;
     }
     if (buttonText == 'Spot description') {
-      // address.streetNumber = insertedValue;
       modelController.spotDescriptionText.value = modelController.insertedValue;
     }
   }
@@ -148,7 +139,6 @@ class MyNextOutlinedButton extends StatelessWidget {
           style: OutlinedButton.styleFrom(
             shape: StadiumBorder(),
             backgroundColor: Colors.black
-            // side: BorderSide(color: Colors.teal, width: 5.0),
           ),
           child: Text(
             'NEXT',
@@ -167,7 +157,6 @@ class MyNextOutlinedButton extends StatelessWidget {
           style: OutlinedButton.styleFrom(
             shape: StadiumBorder(),
             backgroundColor: Colors.black
-            // side: BorderSide(color: Colors.teal, width: 5.0),
           ),
           child: Text(
             'NEXT',
@@ -202,7 +191,7 @@ class MyDetailCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(20.0))),
-      height: 150.0,
+      height: 130.0,
       width: 320.0,
       child: Column(
         children: [
@@ -230,13 +219,22 @@ class MyDetailCard extends StatelessWidget {
                   style: TextStyle(
                       fontSize: 18.0, color: Colors.black, fontWeight: FontWeight.w800),
                 );
-              } else {
+              }
+              if (cardText == 'DESCRIPTION'){
+                return Text(
+                    '${detailedPageController.data['spotDescription']
+                        .toUpperCase()}',
+                    style: TextStyle(
+                        fontSize: 18, color: Colors.black, fontWeight: FontWeight.w800));
+              }
+              else {
                 return Text(
                     '${detailedPageController.data['spotProperties']
                         .join(', ')
                         .toUpperCase()}',
                     style: TextStyle(
                         fontSize: 18, color: Colors.black, fontWeight: FontWeight.w800));
+
               }
             },
           ),
@@ -271,11 +269,6 @@ class MyDropDownMenu extends StatelessWidget {
               if(newValue == 'Search'){
                 Get.defaultDialog();
               }
-
-              // if(newValue=='All'){
-              //   FirebaseServices().fetchSpots();
-              // }
-              // print(newValue);
             }
 
 
@@ -284,15 +277,3 @@ class MyDropDownMenu extends StatelessWidget {
     );
   }
 }
-
-
-// ' ${controller.spotList[detailedPageController.spotIndex.value].spotAddress!.countryName
-//     ?.toUpperCase()}\n '
-// '${controller.spotList[detailedPageController.spotIndex.value].spotAddress!.postalCode
-//     ?.toUpperCase()} '
-// '${controller.spotList[detailedPageController.spotIndex.value].spotAddress!.cityName
-//     ?.toUpperCase()}\n '
-// '${controller.spotList[detailedPageController.spotIndex.value].spotAddress!.streetName
-//     ?.toUpperCase()} '
-// '${controller.spotList[detailedPageController.spotIndex.value].spotAddress!.streetNumber
-//     ?.toUpperCase()}',

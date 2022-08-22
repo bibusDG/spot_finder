@@ -1,12 +1,9 @@
-
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-// import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:skate_spot_finder/models/new_spot_model.dart';
 import 'package:skate_spot_finder/storage.dart';
 import 'package:skate_spot_finder/views/findSpot/controllers/findSpot_controller.dart';
@@ -21,36 +18,13 @@ class FirebaseServices {
   ModelController modelController = Get.put(ModelController());
   FindSpotController findSpotController = Get.put(FindSpotController());
 
-  // initListener()async{
-  //    FirebaseFirestore.instance.collection('spots')
-  //       .where('spotAddress.cityName', isGreaterThanOrEqualTo: findSpotController.cityNameFinder.value.toUpperCase())
-  //       .where('spotAddress.cityName', isLessThanOrEqualTo: '${findSpotController.cityNameFinder.value.toUpperCase()}z')
-  //       .snapshots().listen((spots) {
-  //     mapRecords(spots);
-  //   });
-  // }
-
-  //   initListener()async {
-  //   fetchSpots();
-  //   FirebaseFirestore.instance.collection('spots').doc('0').snapshots().listen((spots){
-  //     var f = spots.get('spotRiders');
-  //     print(f);
-  //     return f;
-  //   });
-  // }
-
-
   createSpot() async{
     await fetchSpots();
     modelController.id = findSpotController.spotList.length.toString();
     final spot = modelController.createSpot();
     try{
-      // FirebaseFirestore.instance.collection('spots').doc().set(spot.toJson());
       await FirebaseFirestore.instance.collection('spots').doc(findSpotController.spotList.length.toString()).set(spot.toJson());
       await riderSwitch.write(findSpotController.spotList.length.toString(),false);
-
-      // await riderSwitch.write(spot.toJson().toString(),false);
-
 
     }catch(e){
       print('Failed');
@@ -90,13 +64,6 @@ class FirebaseServices {
             spotPhotos: item['spotPhotos'],
           ),
       ).toList();
-      // print(spotList[1].spotName);
-      // for(var spot in spotList){
-      //   if (spot.spotName == 'VV'){
-      //     myList.add(spot);
-      //   }
-      // }
-
         findSpotController.spotList.value = spotList;
 
     }
@@ -140,19 +107,6 @@ class FirebaseServices {
     modelController.longitude.value = coordinates[0].longitude.toString();
 
   }
-  // buildMapOfMarkers() async{
-  //   await fetchSpots();
-  //   FindSpotController findSpotController = Get.find();
-  //   findSpotController.markers.clear();
-  //   for (var spot in findSpotController.spotList){
-  //     findSpotController.markers.add(
-  //         Marker(
-  //             markerId: MarkerId(spot.spotName.toString()),
-  //             position: LatLng(
-  //                 double.parse(spot.spotAddress!.lat.toString()), double.parse(spot.spotAddress!.long.toString())),
-  //             infoWindow: InfoWindow(title: spot.spotName, snippet: spot.spotRiders.toString())));
-  //   }
-  // }
 
     buildMapOfMarkers() async{
       await fetchSpots();
@@ -167,7 +121,7 @@ class FirebaseServices {
                 builder: (ctx) =>
                     Container(
                         child: GestureDetector(onTap:(){
-                          Get.defaultDialog(title: spot.spotName.toString(), content: Text(spot.spotRiders.toString()));
+                          Get.defaultDialog(title: spot.spotName.toString(), content: Text('Riders: ${spot.spotRiders}'));
                         },
                             child: Icon(Icons.place, size: 50,color: Colors.purple,)),)));
 

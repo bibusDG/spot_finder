@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
    <application
-        android:label="skate_spot_finder"
+        android:label="Skate spot"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

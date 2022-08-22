@@ -15,8 +15,6 @@ class GpsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    // ModelController modelController = Get.put(ModelController());
     ModelController modelController = Get.find();
     GeoLocation geoLocation = GeoLocation();
 
@@ -36,20 +34,8 @@ class GpsPage extends StatelessWidget {
                 width: 250.0,
                 child: OutlinedButton(
                   onPressed: () {
-                    Get.defaultDialog(
-                      title: 'Choose option',
-                      content:Column(children: [
-                        CupertinoButton(child: Text('Insert manually'), onPressed: (){
-                          Get.back();
-                          Get.toNamed('/manualGPS',);
-
-                        }),
-                        CupertinoButton(child: Text('From GPS'), onPressed: ()async{
-                          geoLocation.determinePosition;
-                          geoLocation.finalPosition();
-                        }),
-                      ],),
-                    );
+                    geoLocation.determinePosition;
+                    geoLocation.finalPosition();
                   },
                   style: OutlinedButton.styleFrom(
                     shape: StadiumBorder(),

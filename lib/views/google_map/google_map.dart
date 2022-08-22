@@ -1,9 +1,7 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-// import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:skate_spot_finder/views/findSpot/controllers/findSpot_controller.dart';
 import "package:latlong2/latlong.dart" as latLng;
 
@@ -13,7 +11,6 @@ class GoogleMapPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     FindSpotController findSpotController = Get.put(FindSpotController());
-    // Completer<GoogleMapController> _controller = Completer();
     return Scaffold(
       appBar: AppBar(),
       body:FlutterMap(

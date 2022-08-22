@@ -1,26 +1,20 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_getx_widget.dart';
 import 'package:lottie/lottie.dart';
 import 'package:skate_spot_finder/my_widgets.dart';
 import 'package:skate_spot_finder/services/firebase_services.dart';
 import 'package:skate_spot_finder/views/detailed_spot/controllers/detailed_spot_controller.dart';
-import 'package:skate_spot_finder/views/findSpot/controllers/findSpot_controller.dart';
 import 'package:skate_spot_finder/views/newSpot/controllers/model_controller.dart';
-import 'package:url_launcher/url_launcher.dart';
+
 
 class DetailedSpot extends StatelessWidget {
   const DetailedSpot({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // FindSpotController findSpotController = Get.put(FindSpotController());
-
-    // DetailedPageController detailedPageController = Get.put(DetailedPageController());
     DetailedPageController detailedPageController = Get.find();
     ModelController modelController = Get.put(ModelController());
 
@@ -102,6 +96,8 @@ class DetailedSpot extends StatelessWidget {
                                   detailedPageController: detailedPageController,
                                   cardText: 'OBSTACLES',
                                 ),
+                                SizedBox(height:20.0),
+                                MyDetailCard(detailedPageController: detailedPageController, cardText: 'DESCRIPTION'),
                                 SizedBox(height: 100.0, width: 100.0, child: Lottie.asset('assets/icons/1872-small-cute-monster-outline.json')),
                               ],
                             ));
@@ -111,40 +107,6 @@ class DetailedSpot extends StatelessWidget {
                             style: TextStyle(fontSize: 20.0, color: Colors.white),
 
                           ),),
-                          // child: OutlinedButton(
-                          //   onPressed: () async {
-                          //     return showModalBottomSheet(
-                          //       backgroundColor: Colors.white,
-                          //         shape: RoundedRectangleBorder(
-                          //             borderRadius: BorderRadius.only(
-                          //                 topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0))),
-                          //         context: context,
-                          //         builder: (context) {
-                          //           return Column(
-                          //             crossAxisAlignment: CrossAxisAlignment.center,
-                          //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          //             children: [
-                          //               MyDetailCard(
-                          //                 detailedPageController: detailedPageController,
-                          //                 cardText: 'ADDRESS',
-                          //               ),
-                          //               MyDetailCard(
-                          //                 detailedPageController: detailedPageController,
-                          //                 cardText: 'OBSTACLES',
-                          //               ),
-                          //             ],
-                          //           );
-                          //         });
-                          //   },
-                          //   style: OutlinedButton.styleFrom(
-                          //     shape: StadiumBorder(),
-                          //     side: BorderSide(color: Color(0xffec3e4b), width: 5.0),
-                          //   ),
-                          //   child: Text(
-                          //     'SPOT DETAILS',
-                          //     style: TextStyle(fontSize: 20.0, color: Colors.white),
-                          //   ),
-                          // ),
                         ),
                       ),
                       Padding(
@@ -154,10 +116,7 @@ class DetailedSpot extends StatelessWidget {
                           width: 250.0,
                           child: OutlinedButton(
                             onPressed: () async {
-                              if (!await launchUrl(Uri.parse(
-                                  'https://www.google.pl/maps/search/${detailedPageController.data['spotAddress'].values.join(', ')}/'))) {
-                                throw 'Could not launch';
-                              }
+                              Get.toNamed('/spotOnMap');
                             },
                             style: OutlinedButton.styleFrom(
                               shape: StadiumBorder(),
@@ -206,7 +165,7 @@ class DetailedSpot extends StatelessWidget {
                                 FirebaseServices()
                                     .updateSpot(detailedPageController.spotIndex, {'votesCounter': spotVotes! + 1});
                                 Get.back();
-                                await Get.toNamed('/findSpot');
+                                // await Get.toNamed('/findSpot');
                               },
                             );
                           },

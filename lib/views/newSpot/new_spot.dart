@@ -21,7 +21,13 @@ List spotData = [
   'WOOD',
   'ASPHALT',
   'STREET',
-  'SKATEPARK'
+  'SKATEPARK',
+  'WALLS',
+  'LEDGE',
+  'BOWL',
+  'KICKER',
+  'RAMPS',
+  'QUATER'
 ];
 
 class NewSpot extends StatelessWidget {
@@ -29,11 +35,9 @@ class NewSpot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ModelController modelController = Get.put(ModelController());
     ModelController modelController = Get.put(ModelController());
     PhotoController photoController = Get.put(PhotoController());
     DetailedPageController detailedPageController = Get.put(DetailedPageController());
-
 
     return SafeArea(
       child: Scaffold(

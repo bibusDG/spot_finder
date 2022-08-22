@@ -54,39 +54,27 @@ class GeoLocation {
   void finalPosition()async{
     Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
-    // newSpotController.countryName =
     if (position != null){
+      print(placemarks);
       Get.snackbar(duration: Duration(seconds: 5), 'GPS location', 'Location saved successfully');
-      // print(position);
-      // print(placemarks.join(',').split(',')[7]);
-      // print(placemarks.join(', ').split(', ')[0].split((':'))[1]);
-      // print(placemarks[0].)
       modelController.latitude.value = position.latitude.toString();
       modelController.longitude.value = position.longitude.toString();
-      modelController.countryText.value = placemarks.join(',').split(',')[3].split((':'))[1];
-      modelController.cityText.value = placemarks.join(',').split(',')[7].split((':'))[1];
-      modelController.postalCodeText.value = placemarks.join(',').split(',')[4].split((':'))[1];
-      modelController.streetNameText.value = placemarks.join(',').split(',')[9].split((':'))[1];
-      modelController.streetNumberText.value = placemarks.join(',').split(',')[0].split((':'))[1];
+      print(placemarks[0].street);
 
-      // newSpotController.countryName.value = placemarks[0].toString().split(',')[3].split(':')[1];
-      // newSpotController.cityName.value = placemarks[0].toString().split(',')[7].split(':')[1];
-      // newSpotController.postalCode.value = placemarks[0].toString().split(',')[4].split(':')[1];
-      // newSpotController.streetName.value = placemarks[0].toString().split(',')[9].split(':')[1];
-      // newSpotController.streetNumber.value = placemarks[0].toString().split(',')[0].split(':')[1];
+      modelController.countryText.value = placemarks[0].country.toString();
+      modelController.cityText.value = placemarks[0].locality.toString();
+      modelController.postalCodeText.value = placemarks[0].postalCode.toString();
+      modelController.streetNameText.value = placemarks[0].street.toString();
+      // modelController.streetNumberText.value = placemarks.join(',').split(',')[0].split((':'))[1];
+
+      // modelController.countryText.value = placemarks.join(',').split(',')[3].split((':'))[1];
+      // modelController.cityText.value = placemarks.join(',').split(',')[7].split((':'))[1];
+      // modelController.postalCodeText.value = placemarks.join(',').split(',')[4].split((':'))[1];
+      // modelController.streetNameText.value = placemarks.join(',').split(',')[9].split((':'))[1];
+      // modelController.streetNumberText.value = placemarks.join(',').split(',')[0].split((':'))[1];
     }else{
 
     }
-    // print(position);
-    // print(placemarks[0]);
-    // print(placemarks[0].toString().split(',')[0].split(':')[1]);
-    //
-    // newSpotController.countryName.value = placemarks[0].toString().split(',')[3].split(':')[1];
-    // newSpotController.cityName.value = placemarks[0].toString().split(',')[7].split(':')[1];
-    // newSpotController.postalCode.value = placemarks[0].toString().split(',')[4].split(':')[1];
-    // newSpotController.streetName.value = placemarks[0].toString().split(',')[9].split(':')[1];
-    // newSpotController.streetNumber.value = placemarks[0].toString().split(',')[0].split(':')[1];
-
   }
 
   get determinePosition => _determinePosition();

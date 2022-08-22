@@ -19,7 +19,7 @@ class PhotoPage extends StatelessWidget {
         appBar: AppBar(
           leading: Text(''),
           centerTitle: true,
-          title: Text('Photo Page'),
+          title: Text('PHOTO PAGE'),
         ),
         body: Center(
           child: Column(

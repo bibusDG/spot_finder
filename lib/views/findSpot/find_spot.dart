@@ -6,8 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-// import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:skate_spot_finder/geolocation.dart';
 import 'package:skate_spot_finder/storage.dart';
 import 'package:skate_spot_finder/views/detailed_spot/controllers/detailed_spot_controller.dart';
 import 'package:skate_spot_finder/views/findSpot/controllers/findSpot_controller.dart';
@@ -31,12 +29,6 @@ class FindSpot extends StatelessWidget {
   Widget build(BuildContext context) {
     FindSpotController findSpotController = Get.put(FindSpotController());
     DetailedPageController detailedPageController = Get.put(DetailedPageController());
-
-
-
-
-    // FirebaseServices().fetchSpots();
-    // FirebaseServices().initListener();
 
 
     return SafeArea(
@@ -91,8 +83,6 @@ class FindSpot extends StatelessWidget {
                   },
                   child: Icon(Icons.search, size: 30.0)),
 
-
-              // Icon(Icons.search, size: 30.0,),
             ],
           ),
           centerTitle: true,
@@ -113,9 +103,6 @@ class FindSpot extends StatelessWidget {
                       itemCount: docs.length,
                       itemBuilder: (context, index) {
                         final data = docs[index].data();
-                        // print(docs.length);
-                        // riderSwitch.write(index.toString(), false);
-                        // print(riderSwitch.read(index.toString()));
                         return Padding(
                           padding: const EdgeInsets.all(6.0),
                           child: Container(
@@ -258,12 +245,14 @@ class FindSpot extends StatelessWidget {
                                                           ],
                                                         ));
                                                   }
-                                                  // print("Value updated: $value");
-                                                  // print(switchMarker);
-                                                  //
                                                   await riderSwitch.write(data['id'], value);
                                                   if (data['spotRiders'] >= 0 && value == true
                                                       ) {
+                                                    Get.defaultDialog(
+                                                      title: 'Important !!!',
+                                                      content: Text('Please remember to uncheck "I\'M RIDING SWITCH",\nafter leaving the spot or before closing an app.\n'
+                                                          'We want to keep real numbers for each spot!!!')
+                                                    );
                                                     FirebaseServices().updateSpot(
                                                         data['id'], {'spotRiders': data['spotRiders'] + 1});
 
@@ -313,30 +302,4 @@ class FindSpot extends StatelessWidget {
     }
     return stars;
   }
-
-
-  // buildMapOfMarkers(data) {
-  //   FindSpotController findSpotController = Get.find();
-  //   findSpotController.markers.add(
-  //       Marker(
-  //           markerId: MarkerId(data['spotName']),
-  //           position: LatLng(double.parse(data['spotAddress']['latitude']), double.parse(data['spotAddress']['longitude'])),
-  //           infoWindow: InfoWindow(title: data['spotName'], snippet: data['spotRiders'].toString())));
-  //   print(findSpotController.markers.length);
-  //   // mapOfGoogleMarkers[data['spotName']] = [data['spotAddress']['latitude'], data['spotAddress']['longitude'], data['spotRiders']];
-  // }
-
-  // showGlobalMap() {
-  //   GoogleMap(
-  //     initialCameraPosition: CameraPosition(
-  //       target: LatLng(38.9647, 35.2233),
-  //       zoom: 9.0,
-  //     ),
-  //     mapType: MapType.normal,
-  //     markers: Set<Marker>.of(_marker),
-  //     onMapCreated: (GoogleMapController controller) {
-  //       _controller.complete(controller);
-  //     },
-  //   );
-  // }
 }

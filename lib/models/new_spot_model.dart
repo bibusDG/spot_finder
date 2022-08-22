@@ -34,16 +34,6 @@ class NewSpotModel{
 
   });
 
-  // NewSpotModel.fromJson(Map<String, dynamic> parsedJSON)
-  //     : spotName = parsedJSON["spotName"],
-  //       spotDescription = parsedJSON["spotDescription"],
-  //       spotProperties = parsedJSON['spotProperties'],
-  //       spotAddress = Address.fromJson(parsedJSON["spotAddress"]),
-  //       spotPhotos = parsedJSON['spotPhotos'],
-  //       spotRank= parsedJSON['spotRank'],
-  //       spotRiders= parsedJSON['spotRiders'];
-
-
   factory NewSpotModel.fromJson(Map<String, dynamic> json) => NewSpotModel(
 
     id:json['id'],
@@ -93,14 +83,6 @@ class Address{
     this.long,
 });
 
-  // Address.fromJson(Map<String, dynamic> parsedJSON)
-  //     : countryName = parsedJSON["countryName"],
-  //       cityName = parsedJSON["cityName"],
-  //       postalCode = parsedJSON['postalCode'],
-  //       streetName = parsedJSON['streetName'],
-  //       streetNumber = parsedJSON['streetNumber'];
-
-
   factory Address.fromJson(Map<String, dynamic> json) => Address(
     countryName: json["countryName"],
     cityName: json["cityName"],
@@ -122,12 +104,4 @@ class Address{
       'longitude': long,
     };
   }
-  // Address.fromMap(Map<String, dynamic> addressMap)
-  //   : countryName = addressMap['countryName'],
-  //     postalCode = addressMap['postalCode'],
-  //     cityName = addressMap['cityName'],
-  //     streetName = addressMap['streetName'],
-  //     streetNumber = addressMap['streetNumber'];
-
-
 }
