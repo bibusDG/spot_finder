@@ -38,7 +38,7 @@
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>This app need access to Your GPS. It is needed to save the spot and its localization.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app needs access to location when open.</string>
+	<string>This app need access to Your GPS. It is needed to save the spot and its localization.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app need access to Your GPS. It is needed to save the spot and its localization.</string>
 	<key>UILaunchStoryboardName</key>

@@ -104,6 +104,8 @@ class MainPage extends StatelessWidget {
                               '* To save/create a new spot, it is necessary to add min. 1 photo\n'
                               'and GPS localization. Please take care, that app has access\n'
                               'to camera and GPS.\n'
+                              '* If You want to delete Your spot, You have to put previously given\n'
+                              'four digit PIN number (the same when spot created).'
                               '* If You have left a spot or want to close app, please take '
                               'care to uncheck switch, so we will have actual number of\n'
                               'riders on spot.\n\n'
@@ -115,7 +117,7 @@ class MainPage extends StatelessWidget {
                               'Thanks to:\n'
                               'Thanks to Lordicon.com we can enjoy great animated icons used in this app\n'
                               'Please visit: https://lordicon.com/\n\n'
-                              'Enjoy the app: bibus - the creator'
+                              'Enjoy the app: bibus - the creator (grosserd81@gmail.com)'
                           )
                         ],
                       )

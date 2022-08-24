@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -107,7 +108,7 @@ class FindSpot extends StatelessWidget {
                           padding: const EdgeInsets.all(6.0),
                           child: Container(
                             decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                            height: 200,
+                            height: 220,
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(primary: Colors.white,
                                     elevation: 1.0,
@@ -213,6 +214,20 @@ class FindSpot extends StatelessWidget {
                                           ),
                                           Row(
                                             children: [
+                                              Text('CREATED BY: ', style: myTextStyle,),
+                                              // Icon(
+                                              //   Icons.person_add,
+                                              //   size: 30,
+                                              //   color: myIconColor,
+                                              // ),
+                                              SizedBox(
+                                                width: 10,
+                                              ),
+                                              Text(data['userNickName'].toString(), style: myTextStyle,),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
                                               Container(width:30, height:30, child: Image.asset('assets/icons/2-accessibility-outline.gif')),
                                               // Icon(Icons.person, color: myIconColor,),
                                               SizedBox(
@@ -274,6 +289,72 @@ class FindSpot extends StatelessWidget {
                                                 //   print("Widget unmounted");
                                                 // }
                                               ),
+                                              SizedBox(width: 10,),
+                                              GestureDetector(
+                                                onTap: (){
+                                                  Get.defaultDialog(
+                                                    title: 'DELETING SPOT',
+                                                    content: Column(
+                                                      children: [
+                                                        Text('Please insert previously given four\n'
+                                                            ' digit PIN number for this spot.'),
+                                                        PinCodeFields(
+                                                          length: 4,
+                                                          fieldBorderStyle: FieldBorderStyle.Square,
+                                                          responsive: false,
+                                                          fieldHeight:40.0,
+                                                          fieldWidth: 40.0,
+                                                          borderWidth:1.0,
+                                                          activeBorderColor: Colors.green,
+                                                          activeBackgroundColor: Colors.green.shade100,
+                                                          borderRadius: BorderRadius.circular(10.0),
+                                                          keyboardType: TextInputType.number,
+                                                          autoHideKeyboard: false,
+                                                          fieldBackgroundColor: Colors.black12,
+                                                          borderColor: Colors.black38,
+                                                          textStyle: TextStyle(
+                                                            fontSize: 30.0,
+                                                            fontWeight: FontWeight.bold,
+                                                          ),
+                                                          onComplete: (output) {
+                                                            if (data['spotPIN'] == output){
+                                                              Get.back();
+                                                              Get.defaultDialog(
+                                                                buttonColor: Colors.black,
+                                                                cancelTextColor: Colors.black,
+                                                                confirmTextColor: Colors.white,
+                                                                title: 'Warning!!',
+                                                                textCancel: 'Cancel',
+                                                                textConfirm: 'Just Do it',
+                                                                onConfirm: ()async{
+                                                                  await FirebaseServices().deleteSpot(data['id']);
+                                                                  Get.back();
+                                                                },
+                                                                content: Column(
+                                                                  children: [
+                                                                    Text('This operation will permanently remove Your spot.\n'
+                                                                        'Are You sure You want to do it?'),
+                                                                  ],
+                                                                )
+                                                              );
+                                                            }
+                                                            else{
+                                                              Get.back();
+                                                              Get.defaultDialog(
+                                                                title: 'Warning',
+                                                                content: Text('Invalid PIN number.')
+                                                              );
+                                                            }
+                                                            // Your logic with pin code
+                                                            print(output);
+                                                          },
+                                                        ),
+
+                                                      ],
+                                                    )
+                                                  );
+                                                },
+                                                  child: Icon(Icons.delete_forever_outlined, color: myIconColor,)),
                                             ],
                                           ),
                                         ],
