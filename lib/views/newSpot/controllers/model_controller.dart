@@ -3,6 +3,8 @@ import '../../../models/new_spot_model.dart';
 
 class ModelController extends GetxController{
 
+    RxString userNickNameText = ''.obs;
+    RxString spotPINText = ''.obs;
     String id ='';
     String insertedValue = '';
     RxString spotNameText =''.obs;
@@ -25,6 +27,8 @@ class ModelController extends GetxController{
     NewSpotModel createSpot(){
         NewSpotModel newSpot = NewSpotModel(
             id:id,
+            spotPIN: spotPINText.value,
+            userNickName: userNickNameText.value.toUpperCase(),
             spotName: spotNameText.value.trim().toUpperCase(),
             spotDescription: spotDescriptionText.value.trim().toUpperCase(),
             spotProperties: spotPropertiesText,

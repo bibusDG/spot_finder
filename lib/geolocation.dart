@@ -47,19 +47,19 @@ class GeoLocation {
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
     Get.snackbar('GPS', 'GPS Activated');
-    return await Geolocator.getCurrentPosition();
+    return await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best, timeLimit: Duration(seconds: 5));
 
   }
+  get determinePosition => _determinePosition();
 
-  void finalPosition()async{
-    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+  void finalPosition() async{
+    Position position = await determinePosition;
     List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
-    if (position != null){
-      print(placemarks);
+    // print(placemarks);
+    if (placemarks.length != 0){
       Get.snackbar(duration: Duration(seconds: 5), 'GPS location', 'Location saved successfully');
       modelController.latitude.value = position.latitude.toString();
       modelController.longitude.value = position.longitude.toString();
-      print(placemarks[0].street);
 
       modelController.countryText.value = placemarks[0].country.toString();
       modelController.cityText.value = placemarks[0].locality.toString();
@@ -77,6 +77,6 @@ class GeoLocation {
     }
   }
 
-  get determinePosition => _determinePosition();
+  // get determinePosition => _determinePosition();
 }
 

@@ -7,6 +7,8 @@ String newSpotModelToJson(NewSpotModel data) => json.encode(data.toJson());
 
 class NewSpotModel{
 
+  String? userNickName;
+  String? spotPIN;
   String? spotName;
   String? spotDescription;
   List? spotProperties;
@@ -20,6 +22,8 @@ class NewSpotModel{
 
   NewSpotModel({
 
+    this.userNickName,
+    this.spotPIN,
     this.spotName,
     this.spotDescription,
     this.spotProperties,
@@ -37,6 +41,8 @@ class NewSpotModel{
   factory NewSpotModel.fromJson(Map<String, dynamic> json) => NewSpotModel(
 
     id:json['id'],
+    userNickName: json["userNickName"],
+    spotPIN: json["spotPIN"],
     spotName: json["spotName"],
     spotDescription: json["spotDescription"],
     spotProperties: json['spotProperties'],
@@ -51,6 +57,8 @@ class NewSpotModel{
   Map<String, dynamic> toJson(){
     return{
       'id': id,
+      'userNickName': userNickName,
+      'spotPIN': spotPIN,
       'spotName': spotName,
       'spotDescription': spotDescription,
       'spotProperties': spotProperties,

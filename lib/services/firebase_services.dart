@@ -19,12 +19,13 @@ class FirebaseServices {
   FindSpotController findSpotController = Get.put(FindSpotController());
 
   createSpot() async{
+    await spotCounterID();
     await fetchSpots();
-    modelController.id = findSpotController.spotList.length.toString();
+    modelController.id = (findSpotController.spotCounterID).toString();
     final spot = modelController.createSpot();
     try{
-      await FirebaseFirestore.instance.collection('spots').doc(findSpotController.spotList.length.toString()).set(spot.toJson());
-      await riderSwitch.write(findSpotController.spotList.length.toString(),false);
+      await FirebaseFirestore.instance.collection('spots').doc((findSpotController.spotCounterID).toString()).set(spot.toJson());
+      await riderSwitch.write((findSpotController.spotCounterID).toString(), false);
 
     }catch(e){
       print('Failed');
@@ -46,6 +47,11 @@ class FirebaseServices {
       var spots = await FirebaseFirestore.instance.collection('spots').get();
       // print(spots);
       await mapRecords(spots);
+    }
+
+    deleteSpot(spotID)async{
+      final _db_toDelete = FirebaseFirestore.instance;
+      await _db_toDelete.collection('spots').doc(spotID).delete();
     }
 
 
@@ -126,6 +132,19 @@ class FirebaseServices {
                             child: Icon(Icons.place, size: 50,color: Colors.purple,)),)));
 
       }
+    }
+    
+    spotCounterID()async{
+      var myCounter = await FirebaseFirestore.instance.collection('spotCounter').doc('spotID').get();
+      Map<String,dynamic>? counterValue = myCounter.data();
+      findSpotController.spotCounterID.value = counterValue!['id'].toString();
+
+      var collection = FirebaseFirestore.instance.collection('spotCounter');
+      collection
+          .doc('spotID')
+          .update({'id' : counterValue['id']+1}) // <-- Updated data
+          .then((_) => print('Success'))
+          .catchError((error) => print('Failed: $error'));
     }
 
 }

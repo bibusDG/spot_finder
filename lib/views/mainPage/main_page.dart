@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:lottie/lottie.dart';
 
-
 //TODO clean code by extracting widgets
 
 class MainPage extends StatelessWidget {
@@ -105,7 +104,7 @@ class MainPage extends StatelessWidget {
                               'and GPS localization. Please take care, that app has access\n'
                               'to camera and GPS.\n'
                               '* If You want to delete Your spot, You have to put previously given\n'
-                              'four digit PIN number (the same when spot created).'
+                              'four digit PIN number (the same when spot created).\n'
                               '* If You have left a spot or want to close app, please take '
                               'care to uncheck switch, so we will have actual number of\n'
                               'riders on spot.\n\n'

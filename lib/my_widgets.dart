@@ -29,11 +29,12 @@ class MyHomeIcon extends StatelessWidget {
 class MyTextFieldWidget extends StatelessWidget {
   const MyTextFieldWidget({
     Key? key,
-    required this.modelController, required this.helperText,
+    required this.modelController, required this.helperText, required this.infoText,
   }) : super(key: key);
 
   final ModelController modelController;
   final String helperText;
+  final String infoText;
 
 
   @override
@@ -49,6 +50,9 @@ class MyTextFieldWidget extends StatelessWidget {
         maxLines: 1,
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
+          suffixIcon: GestureDetector(onTap:(){
+            Get.defaultDialog(title: 'INFO', content: Text(infoText));
+          },child: Icon(Icons.info_outline)),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.black, width: 1.2),
               borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -68,6 +72,9 @@ class MyTextFieldWidget extends StatelessWidget {
   }
 
   void buttonPressed(String buttonText) {
+    if (buttonText == 'Your nick name') {
+      modelController.userNickNameText.value = modelController.insertedValue;
+    }
     if (buttonText == 'Country') {
       modelController.countryText.value = modelController.insertedValue;
     }

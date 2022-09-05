@@ -34,7 +34,7 @@ class GpsPage extends StatelessWidget {
                 width: 250.0,
                 child: OutlinedButton(
                   onPressed: () {
-                    geoLocation.determinePosition;
+                    // geoLocation.determinePosition;
                     geoLocation.finalPosition();
                   },
                   style: OutlinedButton.styleFrom(

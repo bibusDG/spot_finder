@@ -43,6 +43,7 @@ dependencies:
   webview_flutter:
   flutter_map:
   lottie:
+  flutter_pin_code_fields:
 
 
 
